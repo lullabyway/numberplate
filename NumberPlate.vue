@@ -12,21 +12,22 @@
         </div>
         <div class="new">
             <label class="ze-checkbox">
-                <input type="checkbox" v-model="checkbox" @change="carTypeChange" style="width: 25px;height: 25px;">
-                <span class="ze-checkbox-text">新能源车</span>
+                <input type="checkbox" id="new" v-model="checkbox" @change="carTypeChange" style="width: 25px;height: 25px;">
+                <i></i>
             </label>
+            <label class="ze-checkbox-text" for="new">新能源车</label>
         </div>
         <div class="keyboard" v-if="keyboardShow" :class='{animationDown:isDown,animationUp:isUp}'>
             
             <div v-if="keyboard == 'txt'">
-                <div class="keyboard-row" v-for="(item,rows) in carTxt">
-                    <button class="keyboard-row-item" v-for="(i,index) in item.name" @click="btnWordClick(rows,index,i)">{{i}}</button>
+                <div class="keyboard-row" v-for="(item,rows) in carTxt" :key="rows">
+                    <button class="keyboard-row-item" v-for="(i,index) in item.name" :key="index" @click="btnWordClick(rows,index,i)">{{i}}</button>
                 </div>
                 <div class="keyboard-row">
                 <!-- <div class="keyboard-row-items"> -->
                     <button class="keyboard-row-item bottom" @click="btnBottomClick('新')">新</button>
                     <button class="keyboard-row-item bottom" @click="btnBottomClick('临')">临</button>
-                    <button v-for="j in noneBottomtxt" class="none-botton">{{j}}</button>
+                    <button v-for="j in noneBottomtxt" :key="j.id" class="none-botton">{{j}}</button>
                     <button class="keyboard-row-item iconfont icon-wancheng" @click="completeClick"></button>
                     <div class="keyboard-row-item clear iconfont icon-shanchu4" @click="clearClick">
                     </div>
@@ -34,16 +35,17 @@
                 </div>
             </div>
             <div v-if="keyboard == 'num'">
-                <div class="keyboard-row" v-for="(item,rows) in carNum">
-                    <button :disabled="!isSelectl?isDisable && i<10 :isDisable&& rows!=0 " class="keyboard-row-item" v-for="(i,index) in item.name" @click="btnWordClick(rows,index,i)">{{i}}
+                <div class="keyboard-row" v-for="(item,rows) in carNum" :key="rows">
+                    <button :disabled="!isSelectl?isDisable && i<10 :isDisable&& rows!=0 " class="keyboard-row-item" v-for="(i,index) in item.name" :key="index" @click="btnWordClick(rows,index,i)">{{i}}
                     </button>
                 </div>
                 <div class="keyboard-row">
                 <!-- <div class="keyboard-row-bottom"> -->
-                    <button :disabled="isSelectl" v-for="item in carNumBottom" class="keyboard-row-item bottom" @click="btnBottomNumClick(item)">{{item}}</button>
-                    <button v-for="j in noneBottom" class="none-botton">{{j}}</button>
+                    <button :disabled="isSelectl" v-for="item in carNumBottom" :key="item.id" class="keyboard-row-item bottom" @click="btnBottomNumClick(item)">{{item}}</button>
+                    <button v-for="j in noneBottom" :key="j.id" class="none-botton">{{j}}</button>
+                    <button  class="none-botton"></button>
                     <button class="keyboard-row-item iconfont icon-wancheng" @click="completeClick"></button>
-                    <div class="keyboard-row-item clear iconfont icon-shanchu4" @click="clearClick">  
+                    <div class="keyboard-row-item clear iconfont icon-shanchu4" @click="clearClick">
                     </div>
                 <!-- </div> -->
                 </div>
@@ -89,7 +91,7 @@ export default {
     　　　　　　{ name: ['琼', '渝', '川', '贵', '云', '藏', '陕', '甘', '青', '宁'] }
     　　　　],
     　　　　carNumBottom: ['W', 'X', 'Y', 'Z'],
-    　　　　noneBottom: ['', '', '', ''],
+    　　　　noneBottom: ['', '',''],
     　　　　noneBottomtxt: ['', '', '', '', '', ''],
     　　　　carNum: [
     　　　　　　{ name: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'] },
@@ -218,11 +220,11 @@ export default {
     　　　　　　this.numSix = i
     　　　　}
     　　　　if (this.key === 7 || this.key === 8) {
-    　　　　　　this.carNumBottom = ['W', 'X', 'Y', 'Z', '港', '澳', '台']
-    　　　　　　this.noneBottom = ['']
+    　　　　　　this.carNumBottom = ['W', 'X', 'Y', 'Z', '港', '澳']
+    　　　　　　this.noneBottom = ['', '', ]
     　　　　} else if (this.key === 3 || this.key === 4 || this.key === 5 || this.key === 6) {
     　　　　　　this.carNumBottom = ['W', 'X', 'Y', 'Z']
-    　　　　　　this.noneBottom = ['', '', '', '']
+    　　　　　　this.noneBottom = ['', '','','']
     　　　　}
     　　},
     　　// 车牌第一位选择‘临’,’新‘后的键盘显示
@@ -337,11 +339,11 @@ export default {
     　　　　　　this.key = 8
     　　　　}
     　　　　if (name === 'five' || name === 'six') {
-    　　　　　　this.carNumBottom = ['W', 'X', 'Y', 'Z', '港', '澳', '学']
+    　　　　　　this.carNumBottom = ['W', 'X', 'Y', 'Z', '港', '澳']
     　　　　　　this.noneBottom = ['']
     　　　　} else {
     　　　　　　this.carNumBottom = ['W', 'X', 'Y', 'Z']
-    　　　　　　this.noneBottom = ['', '', '', '']
+    　　　　　　this.noneBottom = ['', '', '']
     　　　　}
     　　},
     　　// 键盘点击‘完成’
@@ -417,6 +419,10 @@ export default {
 }
 </script>
 <style>
+@import './iconfont/iconfont.css';
+#numberplate {
+    box-sizing: border-box
+}
 #numberplate,
 .keyboardMask {
     width: 100%;
@@ -451,10 +457,11 @@ export default {
 .keyboard {
     width: 100%;
     position: fixed;
+    left: 0;
     bottom: 0;
     z-index: 999;
     background-color: #eeeeee;
-    padding: 10px 5px 0 5px
+    padding: 10px 0 0 0
 }
 .none-botton {
     border: none;
@@ -472,26 +479,37 @@ export default {
     font-size: 14px;
     
 }
-.ze-checkbox {
-    position: relative;
-    display: block;
-    height: 40px;
-    line-height: 40px;
-}
-.ze-checkbox>input {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 60px
-}
-.ze-checkbox>span {
-    display: inline-block;
-    height: 40px;
-    line-height: 40px;
-}
-
 #numberplate .iconfont {
     color: #000;
     font-size: 20px
+}
+.ze-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+.ze-checkbox>input {
+    opacity: 0;
+    z-index: 999
+}
+.ze-checkbox>input,
+.ze-checkbox>i {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 6px;
+    border: 0;
+    left: 0;
+}
+.ze-checkbox>i {
+    background: url('./images/enable_checkbox@3x.png');
+    bottom: 0;
+    left: 0;
+    background-size: 100% 100%;
+}
+.ze-checkbox>input[type='checkbox']:checked +i {
+    background: url('./images/checkbox_checked@3x.png');
+    background-size: 100% 100%;
 }
 </style>
