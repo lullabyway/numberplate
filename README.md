@@ -1,6 +1,8 @@
 # numberplate
 手机端模拟键盘输入车牌
 
+![](https://github.com/lullabyway/images/raw/master/numplate/numplate1.gif)
+
 ## 使用
 
 在main.js中导入
