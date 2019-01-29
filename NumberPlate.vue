@@ -56,6 +56,7 @@
 export default {
     data () {
     　　return {
+           numPlate:0,
     　　　　checkbox: false,
     　　　　isDown: false,
     　　　　isUp: false,
@@ -123,18 +124,18 @@ export default {
     　　},
     　　numFive: function (val) { //监听是否为普通车牌最后一位
     　　　　if (!this.checkbox && val) {
-    　　　　　　this.isUp = false
-    　　　　　　this.isDown = true
-    　　　　　　this.keyboardShow = false
-    　　　　　　this.isNumFive = false
+    　　　　　　 this.isUp = false
+    　　　　　　 this.isDown = true
+    　　　　　　 this.isNumFive = false
+                this.completeClick ()
     　　　　}
     　　},
     　　numSix: function (val) { //监听是否为新能源车牌最后一位
     　　　　if (this.checkbox && val) {
-    　　　　　　this.isUp = false
-    　　　　　　this.isDown = true
-    　　　　　　this.keyboardShow = false
-    　　　　　　this.isNumSix = false
+    　　　　　　 this.isUp = false
+    　　　　　　 this.isDown = true
+    　　　　　　 this.isNumSix = false
+                this.completeClick ()
     　　　　}
     　　}
     },
@@ -356,6 +357,12 @@ export default {
     　　　　this.isUp = false
     　　　　this.isDown = true
     　　　　this.keyboardShow = false
+            if(this.numSix!=''){
+                this.numPlate=this.areaName+this.areaLetter+this.numOne+this.numTwo+this.numThree+this.numFour+this.numFive+this.numSix
+            }else{
+                this.numPlate=this.areaName+this.areaLetter+this.numOne+this.numTwo+this.numThree+this.numFour+this.numFive
+            }
+            this.$emit('numPlate',this.numPlate)
     　　},
     　　// 键盘点击‘删除’
     　　clearClick () {
@@ -384,28 +391,28 @@ export default {
     　　　　　　this.numSix = ''
     　　　　}
     　　 },
-    　　addCar () {
-    　　　var myApp = new Framework7()
-    　　　　var num
-    　　　　var str = document.getElementById('picker-str-date').value
-    　　　　var end = document.getElementById('picker-end-date').value
-    　　　　var bt = new Date(str.replace(/\-/g, '\/'))
-    　　　　var et = new Date(end.replace(/\-/g, '\/'))
-    　　　　if (!this.checkbox) {
-    　　　　　　num = this.areaName + this.areaLetter + this.numOne + this.numTwo + this.numThree + this.numFour + this.numFive
-    　　　　} else if (this.checkbox) {
-    　　　　　　num = this.areaName + this.areaLetter + this.numOne + this.numTwo + this.numThree + this.numFour + this.numFive + this.numSix
-    　　　　}
-    　　　　if (num === '') {
-    　　　　　　this.toastMessage('请输入车牌', 1000)
-    　　　　} else if (!this.checkbox && (this.areaName === '' || this.areaLetter === '' || this.numOne === '' || this.numTwo === '' || this.numThree === '' || this.numFour === '' || this.numFive === '')) {
-    　　　　　　this.toastMessage('请输入完整车牌', 1000)
-    　　　　} else if (this.checkbox && (this.areaName === '' || this.areaLetter === '' || this.numOne === '' || this.numTwo === '' || this.numThree === '' || this.numFour === '' || this.numFive === '' || this.numSix === '')) {
-    　　　　　　this.toastMessage('请输入完整车牌', 1000)
-    　　　　} else if (str !== '' && end !== '' && bt >= et) {
-    　　　　　　this.toastMessage('开始时间必须早于结束时间', 1000)
-    　　　　}
-        }
+    // 　　addCar () {
+    // 　　　var myApp = new Framework7()
+    // 　　　　var num
+    // 　　　　var str = document.getElementById('picker-str-date').value
+    // 　　　　var end = document.getElementById('picker-end-date').value
+    // 　　　　var bt = new Date(str.replace(/\-/g, '\/'))
+    // 　　　　var et = new Date(end.replace(/\-/g, '\/'))
+    // 　　　　if (!this.checkbox) {
+    // 　　　　　　num = this.areaName + this.areaLetter + this.numOne + this.numTwo + this.numThree + this.numFour + this.numFive
+    // 　　　　} else if (this.checkbox) {
+    // 　　　　　　num = this.areaName + this.areaLetter + this.numOne + this.numTwo + this.numThree + this.numFour + this.numFive + this.numSix
+    // 　　　　}
+    // 　　　　if (num === '') {
+    // 　　　　　　this.toastMessage('请输入车牌', 1000)
+    // 　　　　} else if (!this.checkbox && (this.areaName === '' || this.areaLetter === '' || this.numOne === '' || this.numTwo === '' || this.numThree === '' || this.numFour === '' || this.numFive === '')) {
+    // 　　　　　　this.toastMessage('请输入完整车牌', 1000)
+    // 　　　　} else if (this.checkbox && (this.areaName === '' || this.areaLetter === '' || this.numOne === '' || this.numTwo === '' || this.numThree === '' || this.numFour === '' || this.numFive === '' || this.numSix === '')) {
+    // 　　　　　　this.toastMessage('请输入完整车牌', 1000)
+    // 　　　　} else if (str !== '' && end !== '' && bt >= et) {
+    // 　　　　　　this.toastMessage('开始时间必须早于结束时间', 1000)
+    // 　　　　}
+    //     }
     }　
 }
 </script>
