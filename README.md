@@ -1,8 +1,6 @@
 # numberplate
 手机端模拟键盘输入车牌
 
-![](https://github.com/lullabyway/images/raw/master/numplate/numplate1.gif)
-
 ## 使用
 
 在main.js中导入
@@ -18,3 +16,10 @@ Vue.use(numberplate)
 |事件名 | 说明 | 参数|
 |--| -- | --|
 |numPlate | 输入完成时触发 | 车牌号|
+
+## 图示
+
+![](https://github.com/lullabyway/images/raw/master/numplate/numplate1.gif)
+
+![](https://github.com/lullabyway/images/raw/master/numplate/numplate2.gif)
+
